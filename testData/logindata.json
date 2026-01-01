@@ -1,0 +1,17 @@
+{
+	
+	"data":[
+	{
+		 "emailAddress":"wrongEmail@rykone.com",
+		 "password":"Password@2189"
+	},
+	{
+		  "emailAddress":"Dummy@rykone.com",
+		  "password":"Password@2189"
+	},
+	{
+		  "emailAddress":"woleg69912@rykone.com",
+		  "password":"Password@2189"
+	}
+	]
+}
