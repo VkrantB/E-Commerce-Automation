@@ -16,3 +16,6 @@ UI Automation for e-commerce website using Selenium + Java
 
 **Testing Library:** TestNG
 
+**Build Management Tool:** Maven
+
+
