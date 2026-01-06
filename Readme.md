@@ -14,3 +14,5 @@ UI Automation for e-commerce website using Selenium + Java
 
 **Automation Tool:** Selenium WebDriver
 
+**Testing Library:** TestNG
+
