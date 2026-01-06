@@ -3,11 +3,15 @@ package com.ui.tests;
 import static com.constants.Browser.*;
 
 import static org.testng.Assert.*;
+
+import org.apache.logging.log4j.Logger;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
 import com.ui.pages.HomePage;
 import com.ui.pojo.User;
+import com.utility.LoggerUtility;
 
 /* Clean Code Ch. 9 Unit Tests
  		* Test Method Rules !!!
@@ -16,14 +20,11 @@ import com.ui.pojo.User;
  		* 3. Tests Scripts only follow Tests Steps
  		* 4. Reduce use of Local variables 
  		* 5. At least one assertion
- */
-public class LoginTest {
-	HomePage homePage;
+ */ 
 
-	@BeforeMethod(description = "Load the Homepage of website")
-	public void setup() {
-		homePage = new HomePage(CHROME);
-	}
+@Listeners({ com.ui.listeners.TestListener.class })
+public class LoginTest extends TestBase {
+	Logger logger = LoggerUtility.getLogger(this.getClass());
 
 	@Test(description = "Verify login into the application from JSON file", groups = { "e2e",
 			"sanity" }, dataProviderClass = com.ui.dataproviders.LoginDataProvider.class, dataProvider = "LoginTestDataProvider")
@@ -41,11 +42,13 @@ public class LoginTest {
 		assertEquals(homePage.goToLoginPage().doLoginWith(user.getEmailAddress(), user.getPassword()).getUserName(),
 				"Vik Kumar");
 	}
-	@Test(description = "Verify login into the application from CSV file", groups = { "e2e",
-	"sanity" }, dataProviderClass = com.ui.dataproviders.LoginDataProvider.class, dataProvider = "LoginTestExcelDataProvider")
-public void loginExcelTest(User user) {
 
-assertEquals(homePage.goToLoginPage().doLoginWith(user.getEmailAddress(), user.getPassword()).getUserName(),
-		"Vik Kumar");
-}
+	@Test(description = "Verify login into the application from Excel file", groups = { "e2e",
+			"sanity" }, dataProviderClass = com.ui.dataproviders.LoginDataProvider.class, dataProvider = "LoginTestExcelDataProvider", retryAnalyzer = com.ui.listeners.MyRetryAnalyzer.class)
+	public void loginExcelTest(User user) {
+
+		assertEquals(homePage.goToLoginPage().doLoginWith(user.getEmailAddress(), user.getPassword()).getUserName(),
+				"Vik Kumar1");
+
+	}
 }
